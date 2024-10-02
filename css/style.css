@@ -1,0 +1,23 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body{
+    background-image: url(https://image.cdn2.seaart.ai/2023-06-14/34240702894149/13c87ce7674d959d24851ff0aa0c25fbf7dbe9d2_high.webp);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+h1{
+    font-size: 6.25rem;
+    text-align: center;
+    justify-content: center;
+}
+
