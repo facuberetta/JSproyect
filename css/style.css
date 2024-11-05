@@ -201,3 +201,30 @@ main h1 {
     opacity: 1;
     visibility: visible;
 }
+
+#notificacion {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    font-size: 1rem;
+}
+
+.notificacion-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notificacion-oculta {
+    opacity: 0;
+    visibility: hidden;
+}
+
+

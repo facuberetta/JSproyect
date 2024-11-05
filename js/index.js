@@ -77,12 +77,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const abrirPuertaBtn = document.getElementById("abrir-puerta");
     const mensajePuerta = document.getElementById("mensaje-puerta");
 
+    
+    cargarProgreso();
+
     // Evento para explorar los arbustos
     explorarArbustosBtn.addEventListener("click", () => {
         mitadLlaveArbustos = encontrarPrimeraMitad();
         if (mitadLlaveArbustos) {
             resultadoArbustos.textContent = "¡Has encontrado la primera mitad de la llave!";
             resultadoArbustos.classList.remove("resultado-oculto");
+            guardarProgreso();
             verificarLlaveCompleta();
         } else {
             resultadoArbustos.textContent = "No has encontrado nada. Sigue buscando.";
@@ -92,17 +96,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Evento para abrir el libro
     abrirLibroBtn.addEventListener("click", () => {
-        mensajeLibro.textContent = "El libro contiene preguntas. ¡Resuélvelas para obtener la combinación del candado!";
-        mensajeLibro.classList.remove("resultado-oculto");
-        
-        let respuestasJugador = hacerPreguntas();
-        mitadLlaveLibro = comprobarCombinacion(respuestasJugador);
-        
-        if (mitadLlaveLibro) {
-            mensajeLibro.textContent = "¡Has abierto el candado y encontrado la segunda mitad de la llave!";
-            verificarLlaveCompleta();
+        if (mitadLlaveArbustos) {
+            mensajeLibro.textContent = "El libro contiene preguntas. ¡Resuélvelas para obtener la combinación del candado!";
+            mensajeLibro.classList.remove("resultado-oculto");
+            
+            let respuestasJugador = hacerPreguntas();
+            mitadLlaveLibro = comprobarCombinacion(respuestasJugador);
+            
+            if (mitadLlaveLibro) {
+                mensajeLibro.textContent = "¡Has abierto el candado y encontrado la segunda mitad de la llave!";
+                guardarProgreso();
+                verificarLlaveCompleta();
+            } else {
+                mensajeLibro.textContent = "La combinación es incorrecta. No puedes abrir el libro.";
+            }
         } else {
-            mensajeLibro.textContent = "La combinación es incorrecta. No puedes abrir el libro.";
+            alert("Primero necesitas encontrar la primera mitad de la llave.");
         }
     });
 
@@ -113,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mensajePuerta.textContent = "¡Has unido las dos mitades y abierto la puerta! Puedes entrar.";
             mensajePuerta.classList.remove("resultado-oculto");
             abrirPuertaBtn.disabled = true;
+            guardarProgreso(); 
         } else {
             mensajePuerta.textContent = "No has unido las mitades. No puedes abrir la puerta.";
             mensajePuerta.classList.remove("resultado-oculto");
@@ -150,67 +160,26 @@ document.addEventListener("DOMContentLoaded", () => {
     function verificarLlaveCompleta() {
         if (mitadLlaveArbustos && mitadLlaveLibro) {
             abrirPuertaBtn.disabled = false;
-            mensajeLibro.textContent = "¡Has encontrado ambas mitades! Usa el pegamento junto a la puerta.";
+            mensajePuerta.textContent = "¡Has encontrado ambas mitades! Usa el pegamento junto a la puerta.";
+        }
+    }
+    
+    function guardarProgreso() {
+        const progreso = {
+            primeraMitadEncontrada: mitadLlaveArbustos,
+            segundaMitadEncontrada: mitadLlaveLibro,
+        };
+        localStorage.setItem('progresoEscapeRoom', JSON.stringify(progreso));
+    }
+    
+    function cargarProgreso() {
+        const progresoGuardado = localStorage.getItem('progresoEscapeRoom');
+        if (progresoGuardado) {
+            const progreso = JSON.parse(progresoGuardado);
+            mitadLlaveArbustos = progreso.primeraMitadEncontrada;
+            mitadLlaveLibro = progreso.segundaMitadEncontrada;
         }
     }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    let mitadLlaveArbustos = false;
-    let mitadLlaveLibro = false;
 
-    const explorarArbustosBtn = document.getElementById("explorar-arbustos");
-    const resultadoArbustos = document.getElementById("resultado-arbustos");
-    
-    const abrirLibroBtn = document.getElementById("abrir-libro");
-    const mensajeLibro = document.getElementById("mensaje-libro");
-    
-    const abrirPuertaBtn = document.getElementById("abrir-puerta");
-    const mensajePuerta = document.getElementById("mensaje-puerta");
-
-    explorarArbustosBtn.addEventListener("click", () => {
-        let respuesta = prompt("Buscas entre los arbustos... ¿En cuál de ellos encuentras la primera mitad de la llave? (Elige un número entre 1 y 5)");
-        respuesta = parseInt(respuesta);
-        
-        if (respuesta === 3) {
-            resultadoArbustos.textContent = "¡Has encontrado la primera mitad de la llave!";
-            resultadoArbustos.classList.add("resultado-visible", "glow");
-            mitadLlaveArbustos = true;
-        } else {
-            resultadoArbustos.textContent = "No has encontrado nada. Sigue buscando.";
-            resultadoArbustos.classList.add("resultado-visible");
-        }
-    });
-
-    abrirLibroBtn.addEventListener("click", () => {
-        if (mitadLlaveArbustos) {
-            mensajeLibro.classList.add("dialogo", "mostrar");
-            mensajeLibro.textContent = "Responde las preguntas para obtener la combinación del candado.";
-            
-            let respuestasJugador = [7, 7, 3, 3];
-            mitadLlaveLibro = respuestasJugador.every((respuesta, index) => respuesta === [7, 7, 3, 3][index]);
-
-            if (mitadLlaveLibro) {
-                mensajeLibro.textContent = "¡Has abierto el candado y encontrado la segunda mitad de la llave!";
-                mensajeLibro.classList.add("glow");
-            } else {
-                mensajeLibro.textContent = "La combinación es incorrecta. No puedes abrir el libro.";
-            }
-        } else {
-            alert("Primero necesitas encontrar la primera mitad de la llave.");
-        }
-    });
-
-    abrirPuertaBtn.addEventListener("click", () => {
-        if (mitadLlaveArbustos && mitadLlaveLibro) {
-            mensajePuerta.textContent = "¡Has unido las dos mitades y abierto la puerta!";
-            mensajePuerta.classList.add("dialogo", "mostrar");
-            abrirPuertaBtn.disabled = true;
-        } else {
-            abrirPuertaBtn.classList.add("vibrate");
-            setTimeout(() => abrirPuertaBtn.classList.remove("vibrate"), 300);
-            mensajePuerta.textContent = "Aún no tienes ambas mitades de la llave.";
-            mensajePuerta.classList.add("dialogo", "mostrar");
-        }
-    });
-});
