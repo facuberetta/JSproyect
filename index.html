@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EscapeRoom - La mansión misteriosa</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -15,16 +15,34 @@
                     <li><a href="#">Info</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
-            </nav>
+        </nav>
+        <h1>La Mansión Misteriosa</h1>
+            <p class="title">La entrada</p>
     </header>
     
     <main>
-        <h1>Welcome</h1>
+        <section id="arbustos">
+            <h2>Explora los arbustos</h2>
+            <button id="explorar-arbustos">Buscar en los arbustos</button>
+            <p id="resultado-arbustos" class="resultado-oculto">Aquí está la primera mitad de la llave</p>
+        </section>
 
+        <section id="libro-cerrado">
+            <h2>El libro cerrado</h2>
+            <button id="abrir-libro">Abrir el libro</button>
+            <p id="mensaje-libro" class="resultado-oculto">El libro contiene preguntas. ¡Resuélvelas para obtener la combinación del candado!</p>
+        </section>
+
+        <section id="puerta">
+            <h2>La Puerta Principal</h2>
+            <p>Combina las dos mitades de la llave y usa pegamento para abrir la puerta.</p>
+            <button id="abrir-puerta" disabled>Abrir la puerta</button>
+            <p id="mensaje-puerta" class="resultado-oculto">La puerta está abierta. Puedes pasar al siguiente nivel.</p>
+        </section>
     </main>
 
     <footer>
-
+        <p>&copy; 2024 - Escape Room de Facundo</p>
     </footer>
     <script src="js/index.js"></script>
 </body>
