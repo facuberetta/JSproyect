@@ -9,32 +9,58 @@
 <body>
     <header>
         <nav>
-                <ul class="navbar">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Scaperooms</a></li>
-                    <li><a href="#">Info</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+            <ul class="navbar">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Scaperooms</a></li>
+                <li><a href="#">Info</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
         </nav>
         <h1>La Mansión Misteriosa</h1>
-            <p class="title">La entrada</p>
+        <p class="title">La entrada</p>
     </header>
     
     <main>
+        <div id="container" class="konva-container"></div>
 
         <div id="notificacion" class="notificacion-oculta"></div>
 
         <section id="arbustos">
             <h2>Explora los arbustos</h2>
-            <button id="explorar-arbustos">Buscar en los arbustos</button>
-            <p id="resultado-arbustos" class="resultado-oculto">Aquí está la primera mitad de la llave</p>
+            <div id="container-arbustos">
+                <img src="./assets/pngwing.com.png" data-arbusto="1" alt="Arbusto 1" class="arbusto">
+                <img src="./assets/pngwing.com.png" data-arbusto="2" alt="Arbusto 2" class="arbusto">
+                <img src="./assets/pngwing.com.png" data-arbusto="3" alt="Arbusto 3" class="arbusto">
+                <img src="./assets/pngwing.com.png" data-arbusto="4" alt="Arbusto 4" class="arbusto">
+                <img src="./assets/pngwing.com.png" data-arbusto="5" alt="Arbusto 5" class="arbusto">
+            </div>
+            <p id="resultado-arbustos" class="resultado-oculto"></p>
+        </section>
+        <section id="interacciones">
+            <h2>Interacciones</h2>
+            <button id="abrir-libro">Abrir el libro</button>
+            <p id="mensaje-libro" class="resultado-oculto">El libro contiene preguntas. ¡Resuélvelas para obtener la combinación del candado!</p>
         </section>
 
         <section id="libro-cerrado">
             <h2>El libro cerrado</h2>
             <button id="abrir-libro">Abrir el libro</button>
-            <p id="mensaje-libro" class="resultado-oculto">El libro contiene preguntas. ¡Resuélvelas para obtener la combinación del candado!</p>
+            <div id="preguntas-libro" class="resultado-oculto">
+                <form id="form-preguntas">
+                    <label>¿Cuántos libros hay de Harry Potter?</label>
+                    <input type="number" id="pregunta1" required><br>
+                    <label>¿Cuántos continentes hay en el mundo?</label>
+                    <input type="number" id="pregunta2" required><br>
+                    <label>¿Cuántos colores tiene un semáforo?</label>
+                    <input type="number" id="pregunta3" required><br>
+                    <label>¿Cuántos lados tiene un triángulo?</label>
+                    <input type="number" id="pregunta4" required><br>
+                    <button type="submit">Enviar respuestas</button>
+                </form>
+            </div>
+            <p id="mensaje-libro" class="resultado-oculto"></p>
         </section>
+        
 
         <section id="puerta">
             <h2>La Puerta Principal</h2>
@@ -42,12 +68,19 @@
             <button id="abrir-puerta" disabled>Abrir la puerta</button>
             <p id="mensaje-puerta" class="resultado-oculto">La puerta está abierta. Puedes pasar al siguiente nivel.</p>
         </section>
+        <div id="opciones-pegamento" class="resultado-oculto">
+            <p>¿Quieres usar el pegamento para unir las mitades de la llave?</p>
+            <button id="usar-pegamento">Usar pegamento</button>
+            <button id="cancelar-pegamento">Cancelar</button>
+        </div>
+        
         
     </main>
 
     <footer>
         <p>&copy; 2024 - Escape Room de Facundo</p>
     </footer>
+    
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
     <script src="js/index.js"></script>
 </body>
